@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import AdminNav from "@/components/admin/AdminNav";
 import { requireAdmin } from "@/lib/security/session";
-import { logoutAction } from "@/modules/auth/actions";
 
 export const metadata: Metadata = {
   title: "Admin dashboard",
@@ -10,15 +11,19 @@ export const metadata: Metadata = {
 export default async function AdminHome() {
   const { admin } = await requireAdmin();
 
-    return (
-    <main className="min-h-screen p-8">
-      <h1 className="font-display text-3xl font-bold text-gold">Welcome, {admin.fullName}</h1>
+  return (
+    <main className="mx-auto max-w-4xl p-6">
+      <AdminNav />
+      <h1 className="font-display text-3xl font-bold text-gold">
+        Welcome, {admin.fullName}
+      </h1>
       <p className="mt-2 text-muted">Signed in as {admin.username}.</p>
-      <form action={logoutAction} className="mt-6">
-        <button className="rounded-full border border-gold px-5 py-2 font-semibold text-gold hover:bg-gold hover:text-background">
-          Sign out
-        </button>
-      </form>
+      <Link
+        href="/admin/categories"
+        className="mt-6 inline-block rounded-2xl border border-line bg-surface px-6 py-4 font-semibold hover:border-gold"
+      >
+        Manage categories
+      </Link>
     </main>
   );
 }
