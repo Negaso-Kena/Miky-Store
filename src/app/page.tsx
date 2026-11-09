@@ -1,51 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
+import ProductCard from "@/components/store/ProductCard";
+import SiteFooter from "@/components/store/SiteFooter";
+import SiteHeader from "@/components/store/SiteHeader";
+import { getActiveCategories, getFeaturedProducts } from "@/modules/catalog/queries";
 
-const categories = [
-  "Sound Systems and Speakers",
-  "Amplifiers and Mixers",
-  "Batteries and Power Equipment",
-  "Voltage Regulators",
-  "Cables and Audio Accessories",
-  "Other Electronics",
-];
+export default async function Home() {
+  const [categories, featured] = await Promise.all([
+    getActiveCategories(),
+    getFeaturedProducts(4),
+  ]);
 
-export default function Home() {
   return (
     <div className="min-h-screen">
-      <header className="sticky top-0 z-20 border-b border-line bg-background/90 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center gap-6 px-5 py-3">
-          <Link href="/" className="flex items-center gap-3">
-            <Image
-              src="/miky-mark.png"
-              alt=""
-              width={44}
-              height={44}
-              priority
-              className="h-11 w-11"
-            />
-            <span className="leading-tight">
-              <span className="block font-display text-xl font-bold tracking-[0.18em] text-gold">
-                MIKY
-              </span>
-              <span className="hidden text-[10px] uppercase tracking-[0.2em] text-muted sm:block">
-                Sound Systems &amp; Electronics
-              </span>
-            </span>
-          </Link>
-
-          <nav aria-label="Main" className="ml-auto flex items-center gap-6 text-sm font-medium text-muted">
-            <Link href="/shop" className="hover:text-gold-light">Shop</Link>
-            <Link href="/track" className="hover:text-gold-light">Track order</Link>
-            <Link
-              href="/cart"
-              className="rounded-full border border-gold px-4 py-2 font-semibold text-gold hover:bg-gold hover:text-background"
-            >
-              Cart
-            </Link>
-          </nav>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main className="mx-auto max-w-6xl px-5">
         <section className="relative my-6 min-h-[420px] overflow-hidden rounded-3xl border border-line md:min-h-[520px]">
@@ -70,46 +38,50 @@ export default function Home() {
               to collect from our shop or delivered to you.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link
-                href="/shop"
-                className="rounded-full bg-gold px-8 py-3 font-bold text-background hover:bg-gold-light"
-              >
+              <Link href="/shop" className="rounded-full bg-gold px-8 py-3 font-bold text-background hover:bg-gold-light">
                 Shop now
               </Link>
-              <Link
-                href="/track"
-                className="rounded-full border border-white/40 px-8 py-3 font-semibold hover:border-gold hover:text-gold-light"
-              >
+              <Link href="/track" className="rounded-full border border-white/40 px-8 py-3 font-semibold hover:border-gold hover:text-gold-light">
                 Track an order
               </Link>
             </div>
           </div>
         </section>
 
-        <h2 className="mt-12 mb-4 font-display text-3xl font-bold">Shop by category</h2>
-        <ul className="flex flex-wrap gap-2">
-          {categories.map((name) => (
-            <li key={name}>
-              <Link
-                href="/shop"
-                className="inline-block rounded-full border border-line bg-surface px-4 py-2 text-sm font-semibold hover:border-gold hover:text-gold-light"
-              >
-                {name}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        {categories.length > 0 && (
+          <>
+            <h2 className="mt-12 mb-4 font-display text-3xl font-bold">Shop by category</h2>
+            <ul className="flex flex-wrap gap-2">
+              {categories.map((c) => (
+                <li key={c.id}>
+                  <Link
+                    href={`/shop?category=${c.slug}`}
+                    className="inline-block rounded-full border border-line bg-surface px-4 py-2 text-sm font-semibold hover:border-gold hover:text-gold-light"
+                  >
+                    {c.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
 
         <h2 className="mt-12 mb-4 font-display text-3xl font-bold">Featured products</h2>
-        <div className="rounded-2xl border-2 border-dashed border-line p-10 text-center text-muted">
-          <p className="text-lg font-semibold text-foreground">Products are on the way</p>
-          <p>The catalog is being set up. Check back soon.</p>
-        </div>
+        {featured.length === 0 ? (
+          <div className="rounded-2xl border-2 border-dashed border-line p-10 text-center text-muted">
+            <p className="text-lg font-semibold text-foreground">Products are on the way</p>
+            <p>The catalog is being set up. Check back soon.</p>
+          </div>
+        ) : (
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {featured.map((p) => (
+              <ProductCard key={p.id} product={p} />
+            ))}
+          </div>
+        )}
       </main>
 
-      <footer className="mt-16 border-t border-line py-8 text-center text-sm text-muted">
-        Miky Sound Systems &amp; Electronics
-      </footer>
+      <SiteFooter />
     </div>
   );
 }
