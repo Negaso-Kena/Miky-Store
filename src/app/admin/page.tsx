@@ -10,12 +10,12 @@ export const metadata: Metadata = {
 export default async function AdminHome() {
   const { admin } = await requireAdmin();
 
-  return (
-    <main className="min-h-screen bg-[#0b0a14] p-8 text-white">
-      <h1 className="text-2xl font-bold">Welcome, {admin.fullName}</h1>
-      <p className="mt-2 text-[#a9a4c9]">Signed in as {admin.username}.</p>
+    return (
+    <main className="min-h-screen p-8">
+      <h1 className="font-display text-3xl font-bold text-gold">Welcome, {admin.fullName}</h1>
+      <p className="mt-2 text-muted">Signed in as {admin.username}.</p>
       <form action={logoutAction} className="mt-6">
-        <button className="rounded-full border border-[#6a3df0] px-5 py-2 font-semibold">
+        <button className="rounded-full border border-gold px-5 py-2 font-semibold text-gold hover:bg-gold hover:text-background">
           Sign out
         </button>
       </form>

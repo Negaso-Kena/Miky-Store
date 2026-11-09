@@ -12,7 +12,7 @@ export default async function LoginPage() {
   if (await getAdminSession()) redirect("/admin");
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-[#0b0a14] p-5 text-white">
+        <main className="flex min-h-screen items-center justify-center p-5">
       <LoginForm />
     </main>
   );
