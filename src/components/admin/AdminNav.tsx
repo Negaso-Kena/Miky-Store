@@ -14,6 +14,9 @@ export default function AdminNav() {
       <Link href="/admin/products" className="text-muted hover:text-gold-light">
         Products
       </Link>
+      <Link href="/admin/inventory" className="text-muted hover:text-gold-light">
+        Inventory
+      </Link>
       <form action={logoutAction} className="ml-auto">
         <button className="rounded-full border border-gold px-4 py-1.5 text-gold hover:bg-gold hover:text-background">
           Sign out
