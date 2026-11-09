@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-
+import CartLink from "./CartLink";
 export default function SiteHeader() {
   return (
     <header className="sticky top-0 z-20 border-b border-line bg-background/90 backdrop-blur">
@@ -20,12 +20,7 @@ export default function SiteHeader() {
         <nav aria-label="Main" className="ml-auto flex items-center gap-6 text-sm font-medium text-muted">
           <Link href="/shop" className="hover:text-gold-light">Shop</Link>
           <Link href="/track" className="hover:text-gold-light">Track order</Link>
-          <Link
-            href="/cart"
-            className="rounded-full border border-gold px-4 py-2 font-semibold text-gold hover:bg-gold hover:text-background"
-          >
-            Cart
-          </Link>
+                   <CartLink />
         </nav>
       </div>
     </header>

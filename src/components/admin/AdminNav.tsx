@@ -21,6 +21,9 @@ export default function AdminNav() {
         <button className="rounded-full border border-gold px-4 py-1.5 text-gold hover:bg-gold hover:text-background">
           Sign out
         </button>
+        <Link href="/admin/settings" className="text-muted hover:text-gold-light">
+        Settings
+      </Link>
       </form>
     </nav>
   );

@@ -27,3 +27,18 @@ export function recordFailure(key: string): void {
 export function clearFailures(key: string): void {
   attempts.delete(key);
 }
+
+// Returns true if the action is allowed, false once `max` uses happen within the window.
+export function allowAction(key: string, max: number, windowMs: number): boolean {
+  const now = Date.now();
+  if (attempts.size > 5000) {
+    for (const [k, v] of attempts) if (v.resetAt <= now) attempts.delete(k);
+  }
+  const entry = attempts.get(key);
+  if (!entry || entry.resetAt <= now) {
+    attempts.set(key, { count: 1, resetAt: now + windowMs });
+    return true;
+  }
+  entry.count += 1;
+  return entry.count <= max;
+}

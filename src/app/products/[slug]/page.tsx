@@ -6,6 +6,7 @@ import SiteFooter from "@/components/store/SiteFooter";
 import SiteHeader from "@/components/store/SiteHeader";
 import { formatEtb } from "@/lib/format";
 import { getProductBySlug } from "@/modules/catalog/queries";
+import AddToCart from "@/components/store/AddToCart";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -94,9 +95,14 @@ export default async function ProductPage({ params }: Props) {
             </p>
             <p className={`mt-2 font-semibold ${a.cls}`}>{a.text}</p>
 
-            <p className="mt-5 rounded-xl border border-line bg-surface p-4 text-sm text-muted">
-              Ordering opens soon. Prices are in ETB, and an order request is
-              confirmed by Miky before it becomes a sale.
+            <AddToCart
+              productId={p.id}
+              unitCode={p.unitCode}
+              canOrder={p.availability === "in-stock"}
+            />
+            <p className="mt-4 text-sm text-muted">
+              Prices are in ETB. An order request is confirmed by the shop before it
+              becomes a sale.
             </p>
           </div>
         </div>
