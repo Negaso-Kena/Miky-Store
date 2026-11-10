@@ -18,8 +18,11 @@ export default function SiteHeader() {
         </Link>
 
         <nav aria-label="Main" className="ml-auto flex items-center gap-6 text-sm font-medium text-muted">
+            
+          <Link href="/" className="hover:text-gold-light">Home</Link>
           <Link href="/shop" className="hover:text-gold-light">Shop</Link>
           <Link href="/track" className="hover:text-gold-light">Track order</Link>
+
                    <CartLink />
         </nav>
       </div>
