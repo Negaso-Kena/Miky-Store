@@ -82,6 +82,13 @@ export default async function DonePage({
               The shop will contact you by telephone using the number you gave.
             </p>
           )}
+                    {/* Lets the customer check their order later; the reference is pre-filled */}
+          <Link
+            href={`/track?ref=${ref}`}
+            className="mt-5 inline-block text-sm text-gold-light underline"
+          >
+            Track this order
+          </Link>
         </div>
 
         <Link href="/shop" className="mt-6 inline-block text-sm text-muted underline hover:text-gold-light">
