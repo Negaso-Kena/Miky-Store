@@ -7,7 +7,12 @@ export default function AdminNav() {
       aria-label="Admin"
       className="mb-8 flex flex-wrap items-center gap-5 border-b border-line pb-4 text-sm font-semibold"
     >
-      <Link href="/admin" className="text-gold">Dashboard</Link>
+      <Link href="/admin" className="text-gold">
+      Dashboard
+      </Link>
+      <Link href="/admin/orders" className="text-muted hover:text-gold-light">
+        Orders
+      </Link>
       <Link href="/admin/categories" className="text-muted hover:text-gold-light">
         Categories
       </Link>

@@ -11,6 +11,7 @@
     "db:migrate": "prisma migrate dev",
     "db:deploy": "prisma migrate deploy",
     "owner": "tsx prisma/create-owner.ts",
+    "reset-password": "tsx prisma/reset-password.ts",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },
